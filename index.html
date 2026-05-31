@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy 3 Months, Babey 💖</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --pink:#ff6b9d;--rose:#ff4d7e;--blush:#ffe0ec;--deep:#1a0a12;
+  --gold:#f7c59f;--purple:#a855f7;--soft:#ffd6e7
+}
+body{background:var(--deep);font-family:'DM Sans',sans-serif;color:#fff;overflow-x:hidden;cursor:none}
+#cursor{width:20px;height:20px;background:radial-gradient(circle,var(--pink),transparent);border-radius:50%;position:fixed;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:screen}
+canvas#stars{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none}
+section{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;z-index:1;padding:2rem}
+
+/* INTRO */
+#intro{text-align:center}
+.envelope{width:160px;height:110px;background:var(--blush);border-radius:8px;position:relative;cursor:pointer;margin:0 auto 2rem;box-shadow:0 0 40px rgba(255,107,157,.4);animation:float 3s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+.envelope::before{content:'';position:absolute;top:0;left:0;right:0;border-left:80px solid transparent;border-right:80px solid transparent;border-top:55px solid #f8b4cc}
+.envelope::after{content:'';position:absolute;bottom:0;left:0;right:0;border-left:80px solid transparent;border-right:80px solid transparent;border-bottom:55px solid #fcc}
+.env-lines{position:absolute;top:30px;left:15px;right:15px;z-index:2}
+.env-lines span{display:block;height:3px;background:#e8789d;margin:6px 0;border-radius:2px}
+.heart-seal{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:2rem;z-index:3;animation:pulse 1.5s ease-in-out infinite}
+@keyframes pulse{0%,100%{transform:translate(-50%,-50%) scale(1)}50%{transform:translate(-50%,-50%) scale(1.2)}}
+.intro-title{font-family:'Playfair Display',serif;font-size:clamp(2rem,6vw,4rem);background:linear-gradient(135deg,#ff6b9d,#f7c59f,#ff6b9d);background-size:200%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:shimmer 3s linear infinite;margin-bottom:1rem}
+@keyframes shimmer{0%{background-position:0%}100%{background-position:200%}}
+.intro-sub{color:#ffd6e7;font-size:1.1rem;font-weight:300;letter-spacing:.05em}
+.open-btn{margin-top:2rem;padding:.9rem 2.5rem;background:linear-gradient(135deg,var(--rose),var(--purple));border:none;color:#fff;font-family:'DM Sans',sans-serif;font-size:1rem;font-weight:500;border-radius:50px;cursor:pointer;box-shadow:0 4px 30px rgba(255,77,126,.4);transition:all .3s}
+.open-btn:hover{transform:translateY(-3px)}
+
+/* LETTER */
+#letter{display:none}
+.letter-card{max-width:680px;width:100%;background:rgba(255,255,255,.04);border:1px solid rgba(255,107,157,.25);border-radius:20px;padding:3rem;backdrop-filter:blur(10px)}
+.letter-card h2{font-family:'Playfair Display',serif;font-style:italic;font-size:2rem;color:var(--pink);margin-bottom:1.5rem;text-align:center}
+.letter-card p{line-height:1.9;font-size:1.05rem;color:#ffe8f0;margin-bottom:1rem;font-weight:300}
+.letter-card .sign{font-family:'Playfair Display',serif;font-style:italic;font-size:1.4rem;color:var(--gold);text-align:right;margin-top:1.5rem}
+.next-btn{display:block;margin:2rem auto 0;padding:.8rem 2rem;background:transparent;border:1.5px solid var(--pink);color:var(--pink);font-family:'DM Sans',sans-serif;font-size:.95rem;border-radius:50px;cursor:pointer;transition:all .3s}
+.next-btn:hover{background:var(--pink);color:#fff}
+
+/* TIMELINE */
+#timeline{display:none;padding:3rem 2rem}
+.timeline-title{font-family:'Playfair Display',serif;font-size:2.2rem;color:var(--pink);text-align:center;margin-bottom:3rem}
+.timeline-wrap{max-width:700px;width:100%;position:relative}
+.timeline-wrap::before{content:'';position:absolute;left:50%;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,transparent,var(--pink),var(--purple),transparent);transform:translateX(-50%)}
+.t-item{display:flex;gap:2rem;margin-bottom:3rem;align-items:center}
+.t-item:nth-child(even){flex-direction:row-reverse}
+.t-card{flex:1;background:rgba(255,255,255,.05);border:1px solid rgba(255,107,157,.2);border-radius:16px;padding:1.5rem;transition:transform .3s}
+.t-card:hover{transform:translateY(-4px)}
+.t-card .t-date{font-size:.8rem;color:var(--gold);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.4rem}
+.t-card .t-icon{font-size:2rem;margin-bottom:.5rem}
+.t-card h3{font-family:'Playfair Display',serif;font-size:1.1rem;color:#fff;margin-bottom:.4rem}
+.t-card p{font-size:.9rem;color:#ffd6e7;line-height:1.6;font-weight:300}
+.t-dot{width:16px;height:16px;background:var(--pink);border-radius:50%;flex-shrink:0;box-shadow:0 0 12px var(--rose)}
+.t-spacer{flex:1}
+
+/* GAME */
+#game-section{display:none;padding:2rem}
+.game-title{font-family:'Playfair Display',serif;font-size:2rem;color:var(--pink);text-align:center;margin-bottom:.5rem}
+.game-sub{text-align:center;color:#ffd6e7;font-weight:300;margin-bottom:2rem}
+.game-stats{display:flex;gap:2rem;margin-bottom:1.5rem;justify-content:center}
+.stat-box{text-align:center}
+.stat-box .val{font-family:'Playfair Display',serif;font-size:2rem;color:var(--pink)}
+.stat-box .lbl{font-size:.8rem;color:#ffd6e7;text-transform:uppercase;letter-spacing:.06em}
+.game-msg{text-align:center;font-size:1.1rem;color:var(--gold);min-height:1.5rem;margin:1rem 0}
+.game-board{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;max-width:480px;width:100%}
+.card-tile{
+  aspect-ratio:1;background:rgba(255,107,157,.15);border:1.5px solid rgba(255,107,157,.3);
+  border-radius:12px;display:flex;align-items:center;justify-content:center;
+  font-size:0;cursor:pointer;transition:all .3s;user-select:none
+}
+.card-tile.show{font-size:1.8rem;background:rgba(255,107,157,.3);border-color:var(--pink)}
+.card-tile.matched{font-size:1.8rem;background:rgba(168,85,247,.2);border-color:var(--purple)}
+.game-btns{display:flex;gap:1rem;margin-top:1.5rem;justify-content:center}
+
+/* PHOTO WALL */
+#photo-wall{display:none;padding:2rem}
+.photo-title{font-family:'Playfair Display',serif;font-size:2rem;color:var(--pink);text-align:center;margin-bottom:.5rem}
+.photo-sub{text-align:center;color:#ffd6e7;font-weight:300;margin-bottom:2rem}
+.photo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;max-width:680px;width:100%}
+.photo-card{aspect-ratio:.85;border-radius:16px;overflow:hidden;position:relative;cursor:pointer;background:rgba(255,255,255,.05);border:1px solid rgba(255,107,157,.2);transition:transform .3s}
+.photo-card:hover{transform:scale(1.05)}
+.photo-card .photo-emoji{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:3.5rem;flex-direction:column;gap:.5rem}
+.photo-card .photo-caption{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(26,10,18,.9));padding:1.5rem .8rem .8rem;font-size:.8rem;color:#ffd6e7;text-align:center}
+
+/* FINAL */
+#final{display:none;text-align:center;padding:2rem}
+.final-msg{font-family:'Playfair Display',serif;font-style:italic;font-size:clamp(1.8rem,5vw,3.5rem);background:linear-gradient(135deg,#ff6b9d,#f7c59f,#a855f7);background-size:200%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:shimmer 3s linear infinite;margin-bottom:1.5rem}
+.hearts-rain{position:fixed;inset:0;pointer-events:none;z-index:100}
+.rain-heart{position:absolute;top:-50px;font-size:1.5rem;animation:fall linear forwards}
+@keyframes fall{0%{transform:translateY(0) rotate(0deg);opacity:1}100%{transform:translateY(110vh) rotate(720deg);opacity:0}}
+.final-quote{max-width:500px;margin:0 auto;color:#ffd6e7;font-size:1.1rem;line-height:1.8;font-weight:300;margin-bottom:2rem}
+.final-counter{background:rgba(255,107,157,.1);border:1px solid rgba(255,107,157,.3);border-radius:16px;padding:1.5rem 3rem;display:inline-block;margin-bottom:2rem}
+.final-counter .count-num{font-family:'Playfair Display',serif;font-size:3rem;color:var(--pink);display:block}
+.final-counter .count-lbl{font-size:.85rem;color:#ffd6e7;letter-spacing:.08em;text-transform:uppercase}
+.restart-all{padding:.9rem 2.5rem;background:linear-gradient(135deg,var(--rose),var(--purple));border:none;color:#fff;font-family:'DM Sans',sans-serif;font-size:1rem;font-weight:500;border-radius:50px;cursor:pointer;box-shadow:0 4px 30px rgba(255,77,126,.4);transition:all .3s}
+
+/* NAV DOTS */
+#nav-dots{position:fixed;right:1.5rem;top:50%;transform:translateY(-50%);z-index:50;display:flex;flex-direction:column;gap:8px}
+.dot{width:8px;height:8px;border-radius:50%;background:rgba(255,107,157,.3);border:1.5px solid var(--pink);cursor:pointer;transition:all .3s}
+.dot.active{background:var(--pink);transform:scale(1.3)}
+
+/* MUSIC */
+#music-btn{position:fixed;bottom:1.5rem;left:1.5rem;z-index:200;width:48px;height:48px;border-radius:50%;background:rgba(255,107,157,.15);border:1.5px solid var(--pink);color:var(--pink);font-size:1.3rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .3s}
+#music-btn:hover{background:rgba(255,107,157,.3)}
+#music-btn.playing{animation:spin-slow 4s linear infinite}
+@keyframes spin-slow{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+#music-label{position:fixed;bottom:1.6rem;left:4.5rem;z-index:200;font-size:.75rem;color:#ffd6e7;background:rgba(26,10,18,.8);padding:.3rem .8rem;border-radius:20px;border:1px solid rgba(255,107,157,.2);opacity:0;transition:opacity .4s;pointer-events:none}
+#music-label.show{opacity:1}
+</style>
+</head>
+<body>
+
+<div id="cursor"></div>
+<canvas id="stars"></canvas>
+<button id="music-btn">♪</button>
+<div id="music-label">♫ Playing for you…</div>
+
+<div id="nav-dots">
+  <div class="dot active" data-sec="intro"></div>
+  <div class="dot" data-sec="letter"></div>
+  <div class="dot" data-sec="timeline"></div>
+  <div class="dot" data-sec="game-section"></div>
+  <div class="dot" data-sec="photo-wall"></div>
+  <div class="dot" data-sec="final"></div>
+</div>
+
+<!-- SECTION 1 -->
+<section id="intro">
+  <div class="envelope" id="env-click">
+    <div class="env-lines"><span></span><span></span><span></span></div>
+    <div class="heart-seal">💌</div>
+  </div>
+  <h1 class="intro-title">Happy 3 Months, Babey!</h1>
+  <p class="intro-sub">June 1st — A day worth celebrating ✨</p>
+  <button class="open-btn" id="start-btn">Open Your Surprise 💖</button>
+</section>
+
+<!-- SECTION 2 -->
+<section id="letter">
+  <div class="letter-card">
+    <h2>Dear Chamindu,</h2>
+    <p>Three months ago, something beautiful started between us — something that made ordinary days feel like little adventures, and difficult days feel so much lighter just because you were there.</p>
+    <p>You make me laugh, you make me think, and you make me feel like the luckiest person around. Every little moment with you — the late-night conversations, the shared code errors, the random jokes — I keep them all close to my heart. 💻💕</p>
+    <p>As two people grinding through IT degrees together, I love that we both understand the chaos and still somehow find time for us. You're not just my babey — you're my favourite person to figure out life with.</p>
+    <p>Here's to 3 months of us, and to everything still to come. I couldn't be happier that it's you.</p>
+    <div class="sign">With all my love 💖</div>
+    <button class="next-btn" id="btn-to-timeline">See Our Story →</button>
+  </div>
+</section>
+
+<!-- SECTION 3 -->
+<section id="timeline">
+  <h2 class="timeline-title">Our 3-Month Story 🌸</h2>
+  <div class="timeline-wrap">
+    <div class="t-item">
+      <div class="t-card"><div class="t-date">March 2025 · The Beginning</div><div class="t-icon">🌟</div><h3>The very first spark</h3><p>Everything started with a connection we didn't fully expect — and somehow, it changed everything.</p></div>
+      <div class="t-dot"></div><div class="t-spacer"></div>
+    </div>
+    <div class="t-item">
+      <div class="t-spacer"></div><div class="t-dot"></div>
+      <div class="t-card"><div class="t-date">April 2025 · Growing</div><div class="t-icon">💬</div><h3>Conversations that never ended</h3><p>Late nights, shared stories, laughing until it hurt. We found our rhythm together.</p></div>
+    </div>
+    <div class="t-item">
+      <div class="t-card"><div class="t-date">May 2025 · Deeper</div><div class="t-icon">💻</div><h3>Two IT students, one heart</h3><p>Debugging code side by side (or at least texting about it). The nerd love is real.</p></div>
+      <div class="t-dot"></div><div class="t-spacer"></div>
+    </div>
+    <div class="t-item">
+      <div class="t-spacer"></div><div class="t-dot"></div>
+      <div class="t-card"><div class="t-date">June 1 · Today 🎉</div><div class="t-icon">💖</div><h3>3 beautiful months</h3><p>Here we are — 90 days of choosing each other, every single day. And counting.</p></div>
+    </div>
+  </div>
+  <button class="next-btn" id="btn-to-game" style="margin-top:1rem">Play a Mini Game →</button>
+</section>
+
+<!-- SECTION 4 -->
+<section id="game-section">
+  <h2 class="game-title">Emoji Memory Game 🎮</h2>
+  <p class="game-sub">Match all the love emojis to unlock a surprise! Babey, you've got this 💪</p>
+  <div class="game-stats">
+    <div class="stat-box"><div class="val" id="g-moves">0</div><div class="lbl">Moves</div></div>
+    <div class="stat-box"><div class="val" id="g-pairs">0</div><div class="lbl">Pairs</div></div>
+    <div class="stat-box"><div class="val" id="g-timer">0s</div><div class="lbl">Time</div></div>
+  </div>
+  <div class="game-msg" id="game-msg">Click any card to start!</div>
+  <div class="game-board" id="game-board"></div>
+  <div class="game-btns">
+    <button class="next-btn" id="btn-restart">Restart 🔄</button>
+    <button class="next-btn" id="btn-skip">Skip to next →</button>
+  </div>
+</section>
+
+<!-- SECTION 5 -->
+<section id="photo-wall">
+  <h2 class="photo-title">Moments We've Shared 📸</h2>
+  <p class="photo-sub">Some of our favourite vibes — hover to feel the magic ✨</p>
+  <div class="photo-grid">
+    <div class="photo-card"><div class="photo-emoji">🌙<br><span style="font-size:1rem;color:#ffd6e7">Late nights</span></div><div class="photo-caption">Our best conversations after midnight</div></div>
+    <div class="photo-card"><div class="photo-emoji">💻<br><span style="font-size:1rem;color:#ffd6e7">IT life</span></div><div class="photo-caption">Suffering through assignments together</div></div>
+    <div class="photo-card"><div class="photo-emoji">😂<br><span style="font-size:1rem;color:#ffd6e7">Laughing</span></div><div class="photo-caption">You always make me laugh</div></div>
+    <div class="photo-card"><div class="photo-emoji">🎵<br><span style="font-size:1rem;color:#ffd6e7">Our songs</span></div><div class="photo-caption">The songs that remind me of you</div></div>
+    <div class="photo-card"><div class="photo-emoji">☕<br><span style="font-size:1rem;color:#ffd6e7">Chill vibes</span></div><div class="photo-caption">Just existing together</div></div>
+    <div class="photo-card"><div class="photo-emoji">💖<br><span style="font-size:1rem;color:#ffd6e7">Us</span></div><div class="photo-caption">My favourite chapter yet</div></div>
+  </div>
+  <button class="next-btn" id="btn-to-final" style="margin-top:2rem">The Final Surprise →</button>
+</section>
+
+<!-- SECTION 6 -->
+<section id="final">
+  <div class="hearts-rain" id="hearts-rain"></div>
+  <div class="final-msg">Happy Anniversary, Babey 💕</div>
+  <div class="final-counter">
+    <span class="count-num" id="days-count">0</span>
+    <span class="count-lbl">Days of Us 🌙</span>
+  </div>
+  <p class="final-quote">"In all the world, there is no heart for me like yours. In all the world, there is no love for you like mine." — Happy 3 months, Chamindu. Here's to forever more. 💖</p>
+  <button class="restart-all" id="btn-replay">Replay the Surprise 🔄</button>
+</section>
+
+<script>
+// ── CURSOR ──
+var cur = document.getElementById('cursor');
+document.addEventListener('mousemove', function(e){ cur.style.left = e.clientX+'px'; cur.style.top = e.clientY+'px'; });
+
+// ── STARS ──
+(function(){
+  var c = document.getElementById('stars');
+  var ctx = c.getContext('2d');
+  var stars = [];
+  function resize(){
+    c.width = innerWidth; c.height = innerHeight; stars = [];
+    for(var i=0;i<200;i++) stars.push({x:Math.random()*c.width,y:Math.random()*c.height,r:Math.random()*1.5+.3,o:Math.random(),s:Math.random()*.003+.001});
+  }
+  resize(); window.addEventListener('resize', resize);
+  function draw(){
+    ctx.clearRect(0,0,c.width,c.height);
+    for(var i=0;i<stars.length;i++){
+      var s=stars[i]; s.o+=s.s; if(s.o>1||s.o<0) s.s*=-1;
+      ctx.beginPath(); ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
+      ctx.fillStyle='rgba(255,200,220,'+s.o+')'; ctx.fill();
+    }
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+// ── SECTIONS ──
+var SECTIONS = ['intro','letter','timeline','game-section','photo-wall','final'];
+function showSection(id){
+  for(var i=0;i<SECTIONS.length;i++){
+    document.getElementById(SECTIONS[i]).style.display = 'none';
+  }
+  var el = document.getElementById(id);
+  el.style.display = 'flex';
+  window.scrollTo(0,0);
+  var idx = SECTIONS.indexOf(id);
+  var dots = document.querySelectorAll('.dot');
+  for(var i=0;i<dots.length;i++) dots[i].classList.toggle('active', i===idx);
+  if(id==='game-section') initGame();
+  if(id==='final') startFinal();
+}
+
+// nav dots
+document.querySelectorAll('.dot').forEach(function(d){
+  d.addEventListener('click', function(){ showSection(d.getAttribute('data-sec')); });
+});
+
+// nav buttons — all wired with addEventListener, NO inline onclick
+document.getElementById('start-btn').addEventListener('click',    function(){ showSection('letter'); });
+document.getElementById('env-click').addEventListener('click',    function(){ showSection('letter'); });
+document.getElementById('btn-to-timeline').addEventListener('click', function(){ showSection('timeline'); });
+document.getElementById('btn-to-game').addEventListener('click',  function(){ showSection('game-section'); });
+document.getElementById('btn-to-final').addEventListener('click', function(){ showSection('final'); });
+document.getElementById('btn-replay').addEventListener('click',   function(){ showSection('intro'); });
+document.getElementById('btn-skip').addEventListener('click',     function(){ showSection('photo-wall'); });
+
+// ── GAME ──
+var EMOJIS = ['💖','🌹','💌','🌙','✨','💍','🦋','🌸'];
+var gFlipped=[], gMatched=0, gMoves=0, gCanFlip=true, gTimer=null, gSecs=0, gStarted=false;
+
+function initGame(){
+  clearInterval(gTimer);
+  gFlipped=[]; gMatched=0; gMoves=0; gCanFlip=true; gSecs=0; gStarted=false;
+  document.getElementById('g-moves').textContent = '0';
+  document.getElementById('g-pairs').textContent = '0';
+  document.getElementById('g-timer').textContent = '0s';
+  document.getElementById('game-msg').textContent = 'Click any card to start!';
+
+  var board = document.getElementById('game-board');
+  board.innerHTML = '';
+
+  var deck = EMOJIS.concat(EMOJIS);
+  // shuffle
+  for(var i=deck.length-1;i>0;i--){
+    var j=Math.floor(Math.random()*(i+1));
+    var tmp=deck[i]; deck[i]=deck[j]; deck[j]=tmp;
+  }
+
+  for(var i=0;i<deck.length;i++){
+    var tile = document.createElement('div');
+    tile.className = 'card-tile';
+    tile.setAttribute('data-val', deck[i]);
+    tile.addEventListener('click', tileClick);
+    board.appendChild(tile);
+  }
+}
+
+function tileClick(){
+  var tile = this;
+  if(!gCanFlip) return;
+  if(tile.classList.contains('show')) return;
+  if(tile.classList.contains('matched')) return;
+  if(gFlipped.length >= 2) return;
+
+  if(!gStarted){
+    gStarted = true;
+    gTimer = setInterval(function(){
+      gSecs++;
+      document.getElementById('g-timer').textContent = gSecs+'s';
+    }, 1000);
+  }
+
+  tile.classList.add('show');
+  tile.textContent = tile.getAttribute('data-val');
+  gFlipped.push(tile);
+
+  if(gFlipped.length === 2){
+    gMoves++;
+    document.getElementById('g-moves').textContent = gMoves;
+    gCanFlip = false;
+
+    if(gFlipped[0].getAttribute('data-val') === gFlipped[1].getAttribute('data-val')){
+      // match!
+      gFlipped[0].classList.add('matched');
+      gFlipped[1].classList.add('matched');
+      gFlipped[0].classList.remove('show');
+      gFlipped[1].classList.remove('show');
+      gFlipped = [];
+      gCanFlip = true;
+      gMatched++;
+      document.getElementById('g-pairs').textContent = gMatched;
+
+      var msgs = ['💖 Match!','✨ Nice one!','🌸 You got it!','🦋 Perfect!'];
+      document.getElementById('game-msg').textContent = msgs[Math.floor(Math.random()*msgs.length)];
+
+      if(gMatched === 8){
+        clearInterval(gTimer);
+        document.getElementById('game-msg').textContent = '🎉 You matched all in '+gMoves+' moves & '+gSecs+'s! Amazing, Babey!';
+        setTimeout(function(){ showSection('photo-wall'); }, 2000);
+      }
+    } else {
+      // no match
+      var msgs = ['Try again! 💌','Almost! 🌙','Keep going! ✨','You\'re close! 🌹'];
+      document.getElementById('game-msg').textContent = msgs[Math.floor(Math.random()*msgs.length)];
+      setTimeout(function(){
+        gFlipped[0].classList.remove('show'); gFlipped[0].textContent='';
+        gFlipped[1].classList.remove('show'); gFlipped[1].textContent='';
+        gFlipped = [];
+        gCanFlip = true;
+      }, 900);
+    }
+  }
+}
+
+document.getElementById('btn-restart').addEventListener('click', function(){ initGame(); });
+
+// ── FINAL ──
+function startFinal(){
+  var target = new Date('2025-03-01');
+  var now = new Date();
+  var days = Math.floor((now - target)/(1000*60*60*24));
+  var n = 0;
+  var cnt = document.getElementById('days-count');
+  var iv = setInterval(function(){
+    n += Math.ceil(days/60);
+    if(n >= days){ n=days; clearInterval(iv); }
+    cnt.textContent = n;
+  }, 30);
+
+  var rain = document.getElementById('hearts-rain');
+  rain.innerHTML = '';
+  var h = ['💖','💕','🌸','✨','💌','🌹','💗','🦋'];
+  for(var i=0;i<40;i++){
+    var hrt = document.createElement('div');
+    hrt.className = 'rain-heart';
+    hrt.textContent = h[Math.floor(Math.random()*h.length)];
+    hrt.style.left = Math.random()*100+'vw';
+    hrt.style.animationDuration = (Math.random()*3+3)+'s';
+    hrt.style.animationDelay = Math.random()*4+'s';
+    hrt.style.fontSize = (Math.random()*1.5+.8)+'rem';
+    rain.appendChild(hrt);
+  }
+}
+
+// ── MUSIC (Web Audio API - no library needed) ──
+var audioCtx = null;
+var musicPlaying = false;
+var musicNodes = [];
+var musicBtn = document.getElementById('music-btn');
+var musicLabel = document.getElementById('music-label');
+
+function getAudioCtx(){
+  if(!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  return audioCtx;
+}
+
+function playNote(freq, startTime, duration, vol, type){
+  var ctx = getAudioCtx();
+  var osc = ctx.createOscillator();
+  var gain = ctx.createGain();
+  var reverb = ctx.createConvolver();
+
+  osc.connect(gain);
+  gain.connect(ctx.destination);
+
+  osc.type = type || 'sine';
+  osc.frequency.setValueAtTime(freq, startTime);
+
+  gain.gain.setValueAtTime(0, startTime);
+  gain.gain.linearRampToValueAtTime(vol, startTime + 0.3);
+  gain.gain.linearRampToValueAtTime(vol * 0.7, startTime + duration * 0.6);
+  gain.gain.linearRampToValueAtTime(0, startTime + duration);
+
+  osc.start(startTime);
+  osc.stop(startTime + duration + 0.1);
+  musicNodes.push(osc);
+}
+
+function noteToFreq(note){
+  var notes = {'C':261.63,'D':293.66,'E':329.63,'F':349.23,'G':392.00,'A':440.00,'B':493.88};
+  var base = notes[note[0]];
+  var oct = parseInt(note[note.length-1]);
+  return base * Math.pow(2, oct - 4);
+}
+
+function scheduleMusic(){
+  var ctx = getAudioCtx();
+  var now = ctx.currentTime + 0.1;
+  var bpm = 72;
+  var beat = 60 / bpm;
+  var bar = beat * 4;
+
+  // Chord progression: C - Am - F - G  (repeat 4 bars)
+  var chords = [
+    ['C4','E4','G4'],
+    ['A3','C4','E4'],
+    ['F3','A3','C4'],
+    ['G3','B3','D4']
+  ];
+
+  // Melody (Mary Had a Little Lamb adapted romantically)
+  var melody = [
+    {n:'E5',d:1},{n:'D5',d:1},{n:'C5',d:1},{n:'D5',d:1},
+    {n:'E5',d:1},{n:'E5',d:1},{n:'E5',d:2},
+    {n:'D5',d:1},{n:'D5',d:1},{n:'D5',d:2},
+    {n:'E5',d:1},{n:'G5',d:1},{n:'G5',d:2}
+  ];
+
+  var loopBars = 4;
+  var totalDuration = bar * loopBars * 3; // play 3 loops
+
+  for(var loop = 0; loop < 3; loop++){
+    var loopStart = now + loop * bar * loopBars;
+
+    // Chords - one per bar
+    for(var ci = 0; ci < chords.length; ci++){
+      var barStart = loopStart + ci * bar;
+      var chord = chords[ci];
+      for(var ni = 0; ni < chord.length; ni++){
+        playNote(noteToFreq(chord[ni]), barStart, bar * 0.85, 0.08, 'sine');
+      }
+    }
+
+    // Melody
+    var mt = loopStart;
+    for(var mi = 0; mi < melody.length; mi++){
+      playNote(noteToFreq(melody[mi].n), mt, beat * melody[mi].d * 0.8, 0.12, 'triangle');
+      mt += beat * melody[mi].d;
+    }
+  }
+
+  // Auto-loop
+  musicNodes._loopTimeout = setTimeout(function(){
+    if(musicPlaying){
+      stopMusic(false);
+      scheduleMusic();
+    }
+  }, (totalDuration - 0.5) * 1000);
+}
+
+function stopMusic(full){
+  clearTimeout(musicNodes._loopTimeout);
+  for(var i = 0; i < musicNodes.length; i++){
+    try { musicNodes[i].stop(); } catch(e){}
+  }
+  musicNodes = [];
+  if(full) musicPlaying = false;
+}
+
+musicBtn.addEventListener('click', function(){
+  if(!musicPlaying){
+    // First time or resume
+    var ctx = getAudioCtx();
+    if(ctx.state === 'suspended'){
+      ctx.resume().then(function(){
+        musicPlaying = true;
+        scheduleMusic();
+        musicBtn.classList.add('playing');
+        musicBtn.textContent = '♫';
+        musicLabel.classList.add('show');
+        setTimeout(function(){ musicLabel.classList.remove('show'); }, 3000);
+      });
+    } else {
+      musicPlaying = true;
+      scheduleMusic();
+      musicBtn.classList.add('playing');
+      musicBtn.textContent = '♫';
+      musicLabel.classList.add('show');
+      setTimeout(function(){ musicLabel.classList.remove('show'); }, 3000);
+    }
+  } else {
+    stopMusic(true);
+    musicBtn.classList.remove('playing');
+    musicBtn.textContent = '♪';
+  }
+});
+
+// ── INIT ──
+initGame();
+</script>
+</body>
+</html>
